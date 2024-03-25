@@ -13,13 +13,13 @@ class NotificationPage extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Navigator.of(context)
-                  .pop(MaterialPageRoute(builder: ((context) => HomePage())));
+                  .pop(MaterialPageRoute(builder: ((context) => const HomePage())));
             },
-            child: Padding(
-              padding: const EdgeInsets.only(top: 50, left: 20),
+            child: const Padding(
+              padding: EdgeInsets.only(top: 50, left: 20),
               child: Row(
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.arrow_back_rounded,
                     color: Color.fromARGB(255, 0, 0, 0),
                   ),
@@ -34,8 +34,8 @@ class NotificationPage extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 40),
+          const Padding(
+            padding: EdgeInsets.only(top: 40),
             child: Column(
               children: [
                 NotificationMessageWidget(

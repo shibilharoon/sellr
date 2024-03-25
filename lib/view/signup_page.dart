@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sellr_app/view/bottombar.dart';
-import 'package:sellr_app/view/home_page.dart';
 import 'package:sellr_app/view/login_screen.dart';
 import 'package:sellr_app/view/phone_auth_page.dart';
 
@@ -44,17 +43,15 @@ class SignUp extends StatelessWidget {
                 "Email",
                 style: TextStyle(color: Colors.white),
               ),
-              Container(
-                child: Column(
-                  children: [
-                    TextFormField(
-                      decoration: const InputDecoration(
-                          hintText: "Enter your email address",
-                          hintStyle: TextStyle(
-                              color: Color.fromARGB(255, 139, 139, 139))),
-                    )
-                  ],
-                ),
+              Column(
+                children: [
+                  TextFormField(
+                    decoration: const InputDecoration(
+                        hintText: "Enter your email address",
+                        hintStyle: TextStyle(
+                            color: Color.fromARGB(255, 139, 139, 139))),
+                  )
+                ],
               ),
               const SizedBox(
                 height: 30,
@@ -63,17 +60,15 @@ class SignUp extends StatelessWidget {
                 "Name",
                 style: TextStyle(color: Colors.white),
               ),
-              Container(
-                child: Column(
-                  children: [
-                    TextFormField(
-                      decoration: const InputDecoration(
-                          hintText: "Enter your name",
-                          hintStyle: TextStyle(
-                              color: Color.fromARGB(255, 139, 139, 139))),
-                    )
-                  ],
-                ),
+              Column(
+                children: [
+                  TextFormField(
+                    decoration: const InputDecoration(
+                        hintText: "Enter your name",
+                        hintStyle: TextStyle(
+                            color: Color.fromARGB(255, 139, 139, 139))),
+                  )
+                ],
               ),
               const SizedBox(
                 height: 30,
@@ -82,17 +77,15 @@ class SignUp extends StatelessWidget {
                 "Password",
                 style: TextStyle(color: Colors.white),
               ),
-              Container(
-                child: Column(
-                  children: [
-                    TextFormField(
-                      decoration: const InputDecoration(
-                          hintText: "Enter your email password",
-                          hintStyle: TextStyle(
-                              color: Color.fromARGB(255, 139, 139, 139))),
-                    )
-                  ],
-                ),
+              Column(
+                children: [
+                  TextFormField(
+                    decoration: const InputDecoration(
+                        hintText: "Enter your email password",
+                        hintStyle: TextStyle(
+                            color: Color.fromARGB(255, 139, 139, 139))),
+                  )
+                ],
               ),
               const SizedBox(
                 height: 30,
@@ -100,7 +93,7 @@ class SignUp extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(
-                      MaterialPageRoute(builder: ((context) => BottomBar())));
+                      MaterialPageRoute(builder: ((context) => const BottomBar())));
                 },
                 child: Container(
                   height: 50,
@@ -134,7 +127,7 @@ class SignUp extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(
-                      MaterialPageRoute(builder: ((context) => PhoneAuth())));
+                      MaterialPageRoute(builder: ((context) => const PhoneAuth())));
                 },
                 child: Container(
                     width: 335,

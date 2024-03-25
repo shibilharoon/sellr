@@ -4,9 +4,9 @@ class NotificationMessageWidget extends StatelessWidget {
   final String message;
 
   const NotificationMessageWidget({
-    Key? key,
+    super.key,
     required this.message,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,18 +16,18 @@ class NotificationMessageWidget extends StatelessWidget {
         height: 70,
         width: 350,
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 234, 234, 234),
+          color: const Color.fromARGB(255, 234, 234, 234),
           borderRadius: BorderRadius.circular(15),
         ),
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Row(
             children: [
-              Icon(
+              const Icon(
                 Icons.notifications_active_rounded,
                 color: Colors.red,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 15,
               ),
               Text(message),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:sellr_app/view/notification.dart';
 import 'package:sellr_app/view/widgets/categories.dart';
 import 'package:sellr_app/view/widgets/itembox.dart';
@@ -18,16 +17,16 @@ class HomePage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     "Sellr",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: ((context) => NotificationPage())));
+                          builder: ((context) => const NotificationPage())));
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.notifications_sharp,
                       size: 30,
                     ),
@@ -39,18 +38,18 @@ class HomePage extends StatelessWidget {
               padding: const EdgeInsets.all(15),
               child: TextFormField(
                 decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.search),
+                    prefixIcon: const Icon(Icons.search),
                     hintText: "Search",
                     border: OutlineInputBorder(
                         borderSide: BorderSide.none,
                         borderRadius: BorderRadius.circular(20)),
-                    contentPadding: EdgeInsets.all(10),
-                    fillColor: Color.fromARGB(255, 223, 223, 223),
+                    contentPadding: const EdgeInsets.all(10),
+                    fillColor: const Color.fromARGB(255, 223, 223, 223),
                     filled: true),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 25, right: 25),
+            const Padding(
+              padding: EdgeInsets.only(left: 25, right: 25),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -65,8 +64,8 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -93,8 +92,8 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 25, right: 25, top: 10),
+            const Padding(
+              padding: EdgeInsets.only(left: 25, right: 25, top: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -109,8 +108,8 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(10),
+            const Padding(
+              padding: EdgeInsets.all(10),
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
@@ -139,8 +138,8 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 25, right: 25, top: 10),
+            const Padding(
+              padding: EdgeInsets.only(left: 25, right: 25, top: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -155,8 +154,8 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(10),
+            const Padding(
+              padding: EdgeInsets.all(10),
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(

@@ -12,14 +12,14 @@ class PhoneAuth extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Navigator.of(context)
-                  .push(MaterialPageRoute(builder: ((context) => SignUp())));
+                  .push(MaterialPageRoute(builder: ((context) => const SignUp())));
             },
             child: const Icon(
               Icons.arrow_back_rounded,
               color: Color.fromARGB(255, 0, 0, 0),
             ),
           ),
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width,
             height: 380,
             child: Column(
@@ -47,7 +47,7 @@ class PhoneAuth extends StatelessWidget {
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30))),
-              child: Column(
+              child: const Column(
                 children: [
                   SizedBox(
                     height: 50,

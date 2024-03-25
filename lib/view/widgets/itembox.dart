@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:sellr_app/view/details.dart';
 
 class ImageContainerWidget extends StatelessWidget {
@@ -8,17 +7,17 @@ class ImageContainerWidget extends StatelessWidget {
   final String rate;
 
   const ImageContainerWidget({
-    Key? key,
+    super.key,
     required this.imagePath,
     required this.name,
     required this.rate,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 233, 233, 233),
+        color: const Color.fromARGB(255, 233, 233, 233),
         borderRadius: BorderRadius.circular(15),
       ),
       height: 220,
@@ -32,7 +31,7 @@ class ImageContainerWidget extends StatelessWidget {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => ProductDetailsPage()));
             },
-            child: Container(
+            child: SizedBox(
               height: 162,
               width: 170,
               child: Image.asset(
@@ -45,12 +44,12 @@ class ImageContainerWidget extends StatelessWidget {
             padding: const EdgeInsets.only(left: 8, top: 8),
             child: Text(
               name,
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 8, bottom: 10),
-            child: Text(rate, style: TextStyle(fontWeight: FontWeight.bold)),
+            child: Text(rate, style: const TextStyle(fontWeight: FontWeight.bold)),
           ),
         ],
       ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ProductAddingPage extends StatefulWidget {
+  const ProductAddingPage({super.key});
+
   @override
   _ProductAddingPageState createState() => _ProductAddingPageState();
 }
@@ -12,7 +14,7 @@ class _ProductAddingPageState extends State<ProductAddingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Add Product',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
@@ -22,7 +24,7 @@ class _ProductAddingPageState extends State<ProductAddingPage> {
         automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -32,7 +34,7 @@ class _ProductAddingPageState extends State<ProductAddingPage> {
                 color: Colors.grey[200],
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Center(
+              child: const Center(
                 child: Icon(
                   Icons.add_a_photo,
                   size: 50,
@@ -40,27 +42,27 @@ class _ProductAddingPageState extends State<ProductAddingPage> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             TextField(
               decoration: InputDecoration(
                 labelText: 'Product Name',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                prefixIcon: Icon(Icons.shopping_bag),
+                prefixIcon: const Icon(Icons.shopping_bag),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             TextField(
               decoration: InputDecoration(
                 labelText: 'Location',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                prefixIcon: Icon(Icons.location_on),
+                prefixIcon: const Icon(Icons.location_on),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             DropdownButtonFormField<String>(
               value: _selectedCategory,
               decoration: InputDecoration(
@@ -68,7 +70,7 @@ class _ProductAddingPageState extends State<ProductAddingPage> {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                prefixIcon: Icon(Icons.category),
+                prefixIcon: const Icon(Icons.category),
               ),
               onChanged: (newValue) {
                 setState(() {
@@ -83,55 +85,55 @@ class _ProductAddingPageState extends State<ProductAddingPage> {
                 );
               }).toList(),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             TextField(
               decoration: InputDecoration(
                 labelText: 'Rate',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                prefixIcon: Icon(Icons.attach_money),
+                prefixIcon: const Icon(Icons.attach_money),
               ),
               keyboardType: TextInputType.number,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             TextField(
               decoration: InputDecoration(
                 labelText: 'Description',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                prefixIcon: Icon(Icons.description),
+                prefixIcon: const Icon(Icons.description),
               ),
               maxLines: 3,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton.icon(
               onPressed: () {
                 // Implement Google location selection
               },
-              icon: Icon(Icons.map),
-              label: Text('Select Location'),
+              icon: const Icon(Icons.map),
+              label: const Text('Select Location'),
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 // Implement product adding functionality
               },
-              child: Text(
-                'Add Product',
-                style: TextStyle(color: Colors.white),
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blueAccent, // Change button color
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
+              ),
+              child: const Text(
+                'Add Product',
+                style: TextStyle(color: Colors.white),
               ),
             ),
           ],

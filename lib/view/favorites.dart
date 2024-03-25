@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class FavoriteItemListPage extends StatelessWidget {
-  const FavoriteItemListPage({Key? key}) : super(key: key);
+  const FavoriteItemListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Favorite Items',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
         ),
@@ -15,14 +15,14 @@ class FavoriteItemListPage extends StatelessWidget {
         automaticallyImplyLeading: false,
       ),
       body: ListView.builder(
-        itemCount: 5, // Example number of favorite items
+        itemCount: 5, 
         itemBuilder: (context, index) {
           return Card(
             elevation: 4,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
-            margin: EdgeInsets.all(8),
+            margin: const EdgeInsets.all(8),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -38,7 +38,7 @@ class FavoriteItemListPage extends StatelessWidget {
                           color: Colors.grey.withOpacity(0.5),
                           spreadRadius: 1,
                           blurRadius: 3,
-                          offset: Offset(0, 2),
+                          offset: const Offset(0, 2),
                         ),
                       ],
                     ),
@@ -47,31 +47,31 @@ class FavoriteItemListPage extends StatelessWidget {
                       child: Image.asset(
                         "assets/image/car.jpeg",
                         fit: BoxFit.cover,
-                      ), // Placeholder for product image
+                      ), 
                     ),
                   ),
-                  SizedBox(width: 16),
+                  const SizedBox(width: 16),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Product Name $index', // Replace with actual product name
-                          style: TextStyle(
+                          'Product Name $index', 
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                           ),
                         ),
-                        SizedBox(height: 8),
-                        Text(
-                          'Rate: \$10', // Replace with actual product rate
+                        const SizedBox(height: 8),
+                        const Text(
+                          'Rate: \$10', 
                           style: TextStyle(
                             color: Colors.grey,
                           ),
                         ),
-                        SizedBox(height: 4),
-                        Text(
-                          'Place: ABC Store', // Replace with actual product place
+                        const SizedBox(height: 4),
+                        const Text(
+                          'Place: ABC Store',
                           style: TextStyle(
                             color: Colors.grey,
                           ),
@@ -88,7 +88,7 @@ class FavoriteItemListPage extends StatelessWidget {
                         ),
                       );
                     },
-                    icon: Icon(Icons.delete),
+                    icon: const Icon(Icons.delete),
                     color: Colors.red,
                   ),
                 ],

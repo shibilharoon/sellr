@@ -9,7 +9,7 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width,
             height: 380,
             child: Column(
@@ -45,18 +45,16 @@ class LoginPage extends StatelessWidget {
                       "Email",
                       style: TextStyle(color: Colors.white),
                     ),
-                    Container(
-                      child: Column(
-                        children: [
-                          TextFormField(
-                            decoration: const InputDecoration(
-                                hintText: "Enter your email address",
-                                hintStyle: TextStyle(
-                                    color: Color.fromARGB(
-                                        255, 139, 139, 139))),
-                          )
-                        ],
-                      ),
+                    Column(
+                      children: [
+                        TextFormField(
+                          decoration: const InputDecoration(
+                              hintText: "Enter your email address",
+                              hintStyle: TextStyle(
+                                  color: Color.fromARGB(
+                                      255, 139, 139, 139))),
+                        )
+                      ],
                     ),
                     const SizedBox(
                       height: 30,
@@ -65,19 +63,17 @@ class LoginPage extends StatelessWidget {
                       "Password",
                       style: TextStyle(color: Colors.white),
                     ),
-                    Container(
-                      child: Column(
-                        children: [
-                          TextFormField(
-                            decoration: const InputDecoration(
-                                suffixIcon: Icon(Icons.remove_red_eye),
-                                hintText: "Enter password",
-                                hintStyle: TextStyle(
-                                    color: Color.fromARGB(
-                                        255, 139, 139, 139))),
-                          )
-                        ],
-                      ),
+                    Column(
+                      children: [
+                        TextFormField(
+                          decoration: const InputDecoration(
+                              suffixIcon: Icon(Icons.remove_red_eye),
+                              hintText: "Enter password",
+                              hintStyle: TextStyle(
+                                  color: Color.fromARGB(
+                                      255, 139, 139, 139))),
+                        )
+                      ],
                     ),
                     const SizedBox(
                       height: 50,

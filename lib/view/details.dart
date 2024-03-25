@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ProductDetailsPage extends StatelessWidget {
+  const ProductDetailsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Product Details',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
@@ -13,7 +15,7 @@ class ProductDetailsPage extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -21,7 +23,7 @@ class ProductDetailsPage extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -35,28 +37,28 @@ class ProductDetailsPage extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'Product Name',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10),
-            Text(
+            const SizedBox(height: 10),
+            const Text(
               'Location',
               style: TextStyle(fontSize: 18, color: Colors.grey),
             ),
-            SizedBox(height: 10),
-            Text(
+            const SizedBox(height: 10),
+            const Text(
               'Posted on: January 1, 2024',
               style: TextStyle(fontSize: 16, color: Colors.grey),
             ),
-            SizedBox(height: 20),
-            Divider(height: 20, thickness: 1),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
+            const Divider(height: 20, thickness: 1),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   'Rate: \$50',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
@@ -64,46 +66,46 @@ class ProductDetailsPage extends StatelessWidget {
                   onPressed: () {
                     // Implement buy now functionality
                   },
-                  child: Text(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    textStyle: const TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                  child: const Text(
                     'Buy Now',
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold),
                   ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    textStyle: TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
                   // Implement chat functionality
                 },
-                child: Text('Chat',style: TextStyle(color: Colors.white),),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 16, 100, 19),
-                  textStyle: TextStyle(fontSize: 16),
+                  backgroundColor: const Color.fromARGB(255, 16, 100, 19),
+                  textStyle: const TextStyle(fontSize: 16),
                 ),
+                child: const Text('Chat',style: TextStyle(color: Colors.white),),
               ),
             ),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'More Details',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10),
-            Text(
+            const SizedBox(height: 10),
+            const Text(
               'Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
               style: TextStyle(fontSize: 16),
             ),
-            SizedBox(height: 20),
-            Row(
+            const SizedBox(height: 20),
+            const Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CircleAvatar(
@@ -128,14 +130,14 @@ class ProductDetailsPage extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 20),
-            Divider(height: 20, thickness: 1),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Divider(height: 20, thickness: 1),
+            const SizedBox(height: 20),
+            const Text(
               'Location Map',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Container(
               height: 200,
               decoration: BoxDecoration(
@@ -145,7 +147,7 @@ class ProductDetailsPage extends StatelessWidget {
                     color: Colors.grey.withOpacity(0.5),
                     spreadRadius: 2,
                     blurRadius: 5,
-                    offset: Offset(0, 3),
+                    offset: const Offset(0, 3),
                   ),
                 ],
               ),

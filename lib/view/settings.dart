@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatefulWidget {
+  const SettingsPage({super.key});
+
   @override
   _SettingsPageState createState() => _SettingsPageState();
 }
@@ -12,7 +14,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Settings',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
@@ -20,7 +22,7 @@ class _SettingsPageState extends State<SettingsPage> {
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -28,20 +30,20 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             ListTile(
-              title: Text(
+              title: const Text(
                 'Dark Theme',
                 style: TextStyle(fontSize: 18),
               ),
-              subtitle: Text(
+              subtitle: const Text(
                 'Switch to a darker theme for better viewing experience',
                 style: TextStyle(fontSize: 14, color: Colors.grey),
               ),
-              leading: Icon(Icons.dark_mode),
+              leading: const Icon(Icons.dark_mode),
               trailing: Switch(
                 value: _darkThemeEnabled,
                 onChanged: (value) {
@@ -53,32 +55,32 @@ class _SettingsPageState extends State<SettingsPage> {
                 activeColor: Colors.blue,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ListTile(
-              title: Text(
+              title: const Text(
                 'Help Center',
                 style: TextStyle(fontSize: 18),
               ),
-              subtitle: Text(
+              subtitle: const Text(
                 'Find answers to commonly asked questions',
                 style: TextStyle(fontSize: 14, color: Colors.grey),
               ),
-              leading: Icon(Icons.help_outline),
+              leading: const Icon(Icons.help_outline),
               onTap: () {
                 // Navigate to Help Center
               },
             ),
-            Divider(height: 20, thickness: 1),
+            const Divider(height: 20, thickness: 1),
             ListTile(
-              title: Text(
+              title: const Text(
                 'Log Out',
                 style: TextStyle(fontSize: 18),
               ),
-              subtitle: Text(
+              subtitle: const Text(
                 'Log out from your account',
                 style: TextStyle(fontSize: 14, color: Colors.grey),
               ),
-              leading: Icon(Icons.exit_to_app),
+              leading: const Icon(Icons.exit_to_app),
               onTap: () {
                 // Implement log out logic here
               },

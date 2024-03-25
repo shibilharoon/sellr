@@ -5,12 +5,14 @@ import 'package:sellr_app/view/terms&conditions.dart';
 import 'package:sellr_app/view/widgets/infoitem.dart';
 
 class UserProfileScreen extends StatelessWidget {
+  const UserProfileScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'User Profile',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
@@ -20,10 +22,10 @@ class UserProfileScreen extends StatelessWidget {
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
-            icon: Icon(Icons.edit),
+            icon: const Icon(Icons.edit),
             onPressed: () {
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => EditProfileScreen()),
+                MaterialPageRoute(builder: (context) => const EditProfileScreen()),
               );
             },
             color: Colors.black,
@@ -31,18 +33,18 @@ class UserProfileScreen extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Column(
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 70,
                   backgroundImage: AssetImage('assets/image/dp.jpeg'),
                 ),
-                SizedBox(height: 20),
-                Text(
+                const SizedBox(height: 20),
+                const Text(
                   'John Doe',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -50,17 +52,17 @@ class UserProfileScreen extends StatelessWidget {
                     color: Colors.black,
                   ),
                 ),
-                Text(
+                const Text(
                   'john.doe@example.com',
                   style: TextStyle(color: Colors.grey),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Card(
                   elevation: 2,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Padding(
+                  child: const Padding(
                     padding: EdgeInsets.all(16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,7 +80,7 @@ class UserProfileScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
@@ -89,20 +91,20 @@ class UserProfileScreen extends StatelessWidget {
                         ),
                       );
                     },
-                    child: Text(
-                      'Settings',
-                      style: TextStyle(fontSize: 16, color: Colors.white),
-                    ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
-                      padding: EdgeInsets.symmetric(vertical: 16),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
+                    child: const Text(
+                      'Settings',
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
                   ),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
@@ -113,20 +115,20 @@ class UserProfileScreen extends StatelessWidget {
                         ),
                       );
                     },
-                    child: Text(
-                      'Terms and Conditions',
-                      style: TextStyle(fontSize: 16, color: Colors.white),
-                    ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,
-                      padding: EdgeInsets.symmetric(vertical: 16),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
+                    child: const Text(
+                      'Terms and Conditions',
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
               ],
             ),
           ],

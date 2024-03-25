@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:sellr_app/view/chat_screen.dart';
 
 class ChatHome extends StatefulWidget {
-  const ChatHome({Key? key}) : super(key: key);
+  const ChatHome({super.key});
 
   @override
   _ChatHomeState createState() => _ChatHomeState();
 }
 
 class _ChatHomeState extends State<ChatHome> {
-  TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void dispose() {
@@ -24,7 +24,7 @@ class _ChatHomeState extends State<ChatHome> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: Text(
+        title: const Text(
           "Messages",
           style: TextStyle(
               fontWeight: FontWeight.bold, fontSize: 22, color: Colors.black),
@@ -38,13 +38,13 @@ class _ChatHomeState extends State<ChatHome> {
             padding: const EdgeInsets.all(15),
             child: TextFormField(
               decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.search),
+                  prefixIcon: const Icon(Icons.search),
                   hintText: "Search",
                   border: OutlineInputBorder(
                       borderSide: BorderSide.none,
                       borderRadius: BorderRadius.circular(20)),
-                  contentPadding: EdgeInsets.all(10),
-                  fillColor: Color.fromARGB(255, 223, 223, 223),
+                  contentPadding: const EdgeInsets.all(10),
+                  fillColor: const Color.fromARGB(255, 223, 223, 223),
                   filled: true),
             ),
           ),
@@ -55,13 +55,13 @@ class _ChatHomeState extends State<ChatHome> {
                 return GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: ((context) => ChatScreen())));
+                        builder: ((context) => const ChatScreen())));
                   },
                   child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-                    margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                    margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                     decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 223, 223, 223),
+                      color: const Color.fromARGB(255, 223, 223, 223),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Row(
@@ -82,19 +82,19 @@ class _ChatHomeState extends State<ChatHome> {
                             ),
                           ),
                         ),
-                        SizedBox(width: 16),
+                        const SizedBox(width: 16),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 "Chat Member ${index + 1}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
                                     color: Colors.black),
                               ),
-                              SizedBox(height: 4),
+                              const SizedBox(height: 4),
                               Text(
                                 "Last message",
                                 maxLines: 1,
@@ -108,18 +108,18 @@ class _ChatHomeState extends State<ChatHome> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Container(
-                              padding: EdgeInsets.all(8),
-                              decoration: BoxDecoration(
+                              padding: const EdgeInsets.all(8),
+                              decoration: const BoxDecoration(
                                 color: Colors.blue,
                                 shape: BoxShape.circle,
                               ),
                               child: Text(
                                 "${index + 1}",
-                                style: TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.white),
                               ),
                             ),
-                            SizedBox(height: 4),
-                            Text(
+                            const SizedBox(height: 4),
+                            const Text(
                               "10:30 AM",
                               style:
                                   TextStyle(color: Colors.grey, fontSize: 12),
