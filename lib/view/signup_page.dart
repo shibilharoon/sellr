@@ -1,11 +1,32 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:sellr_app/view/bottombar.dart';
+import 'package:provider/provider.dart';
+import 'package:sellr_app/controller/auth_provider.dart';
 import 'package:sellr_app/view/login_screen.dart';
-import 'package:sellr_app/view/phone_auth_page.dart';
+import 'package:sellr_app/view/otp.dart';
+import 'package:sellr_app/view/phone_auth.dart';
 
-class SignUp extends StatelessWidget {
+class SignUp extends StatefulWidget {
   const SignUp({super.key});
+
+  @override
+  State<SignUp> createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,14 +61,16 @@ class SignUp extends StatelessWidget {
                 height: 50,
               ),
               const Text(
-                "Email",
+                "Name",
                 style: TextStyle(color: Colors.white),
               ),
               Column(
                 children: [
                   TextFormField(
+                    style: TextStyle(color: Colors.white),
+                    controller: nameController,
                     decoration: const InputDecoration(
-                        hintText: "Enter your email address",
+                        hintText: "Enter your Name",
                         hintStyle: TextStyle(
                             color: Color.fromARGB(255, 139, 139, 139))),
                   )
@@ -57,14 +80,16 @@ class SignUp extends StatelessWidget {
                 height: 30,
               ),
               const Text(
-                "Name",
+                "Email",
                 style: TextStyle(color: Colors.white),
               ),
               Column(
                 children: [
                   TextFormField(
+                    style: TextStyle(color: Colors.white),
+                    controller: emailController,
                     decoration: const InputDecoration(
-                        hintText: "Enter your name",
+                        hintText: "Enter your Email ID",
                         hintStyle: TextStyle(
                             color: Color.fromARGB(255, 139, 139, 139))),
                   )
@@ -80,11 +105,24 @@ class SignUp extends StatelessWidget {
               Column(
                 children: [
                   TextFormField(
+                    style: TextStyle(color: Colors.white),
+                    controller: passwordController,
                     decoration: const InputDecoration(
-                        hintText: "Enter your email password",
+                        hintText: "Enter your password",
                         hintStyle: TextStyle(
                             color: Color.fromARGB(255, 139, 139, 139))),
-                  )
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  TextFormField(
+                    style: TextStyle(color: Colors.white),
+                    controller: confirmPasswordController,
+                    decoration: const InputDecoration(
+                        hintText: "Confirm your password",
+                        hintStyle: TextStyle(
+                            color: Color.fromARGB(255, 139, 139, 139))),
+                  ),
                 ],
               ),
               const SizedBox(
@@ -92,8 +130,14 @@ class SignUp extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: ((context) => const BottomBar())));
+                  if (areAllFieldFilled()) {
+                    signUpWithEmail(context);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content: Text("Please fill in all fields")),
+                    );
+                  }
                 },
                 child: Container(
                   height: 50,
@@ -126,62 +170,73 @@ class SignUp extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: ((context) => const PhoneAuth())));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: ((context) => PhoneAuthPage())));
                 },
-                child: Container(
-                    width: 335,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: const Color.fromARGB(255, 169, 21, 21),
-                    ),
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          FontAwesomeIcons.phone,
-                          color: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text(
-                          "Login Using Phone",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    )),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Container(
-                  width: 335,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: const Color.fromARGB(255, 255, 255, 255),
-                  ),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                child: Consumer<AuthProviders>(
+                  builder: (context, value, child) => Column(
                     children: [
-                      Icon(FontAwesomeIcons.google),
-                      SizedBox(
-                        width: 20,
+                      Container(
+                          width: 335,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: const Color.fromARGB(255, 169, 21, 21),
+                          ),
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                FontAwesomeIcons.phone,
+                                color: Colors.white,
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Text(
+                                "Login Using Phone",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          )),
+                      const SizedBox(
+                        height: 20,
                       ),
-                      Text(
-                        "Login Using Google",
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 0, 0, 0),
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold),
+                      GestureDetector(
+                        onTap: () {
+                          value.signUpWithGoogle();
+                        },
+                        child: Container(
+                            width: 335,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: const Color.fromARGB(255, 255, 255, 255),
+                            ),
+                            child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(FontAwesomeIcons.google),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Text(
+                                  "Login Using Google",
+                                  style: TextStyle(
+                                      color: Color.fromARGB(255, 0, 0, 0),
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            )),
                       ),
                     ],
-                  )),
+                  ),
+                ),
+              ),
               const SizedBox(
                 height: 50,
               )
@@ -190,5 +245,23 @@ class SignUp extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  signUpWithEmail(BuildContext context) {
+    final signUpService = Provider.of<AuthProviders>(context, listen: false);
+    if (passwordController.text == confirmPasswordController.text) {
+      signUpService.signUpWithEmail(
+          emailController.text, passwordController.text, nameController.text);
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("Password Don't Match")));
+    }
+  }
+
+  bool areAllFieldFilled() {
+    return nameController.text.isNotEmpty &&
+        emailController.text.isNotEmpty &&
+        passwordController.text.isNotEmpty &&
+        confirmPasswordController.text.isNotEmpty;
   }
 }

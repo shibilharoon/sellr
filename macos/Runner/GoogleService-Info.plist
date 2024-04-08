@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyCSSdLhqY61ljCmK07N1mTj9yeR3r6GX78</string>
+	<key>GCM_SENDER_ID</key>
+	<string>44808051687</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.sellrApp.RunnerTests</string>
+	<key>PROJECT_ID</key>
+	<string>sellr-708b3</string>
+	<key>STORAGE_BUCKET</key>
+	<string>sellr-708b3.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:44808051687:ios:6f71f53b088723df977b42</string>
+</dict>
+</plist>

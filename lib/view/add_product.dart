@@ -1,14 +1,29 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import 'package:sellr_app/controller/firestore_provider.dart';
+import 'package:sellr_app/controller/image_provider.dart';
+import 'package:sellr_app/model/product_model.dart';
+import 'package:sellr_app/view/bottombar.dart';
 
 class ProductAddingPage extends StatefulWidget {
-  const ProductAddingPage({super.key});
+  const ProductAddingPage({
+    super.key,
+  });
 
   @override
   _ProductAddingPageState createState() => _ProductAddingPageState();
 }
 
 class _ProductAddingPageState extends State<ProductAddingPage> {
-  String _selectedCategory = 'Car'; // Default category
+  TextEditingController imageController = TextEditingController();
+  TextEditingController productNameController = TextEditingController();
+  TextEditingController rateController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  TextEditingController categoryController = TextEditingController();
+  TextEditingController locationController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,22 +43,37 @@ class _ProductAddingPageState extends State<ProductAddingPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              height: 150,
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: const Center(
-                child: Icon(
-                  Icons.add_a_photo,
-                  size: 50,
-                  color: Colors.grey,
-                ),
+            Consumer<ImageProviders>(
+              builder: (context, value, child) => Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      value.selectImage(source: ImageSource.camera);
+                    },
+                    child: Container(
+                      height: 150,
+                      width: 330,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: value.selectedImage != null
+                                  ? FileImage(File(value.selectedImage!.path))
+                                  : const AssetImage(
+                                          "assets/image/add image png.png")
+                                      as ImageProvider),
+                          color: const Color.fromARGB(255, 178, 103, 24),
+                          borderRadius: BorderRadius.circular(20)),
+                      child: const Icon(Icons.add),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 30,
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 20),
-            TextField(
+            TextFormField(
+              controller: productNameController,
               decoration: InputDecoration(
                 labelText: 'Product Name',
                 border: OutlineInputBorder(
@@ -54,6 +84,7 @@ class _ProductAddingPageState extends State<ProductAddingPage> {
             ),
             const SizedBox(height: 20),
             TextField(
+              controller: locationController,
               decoration: InputDecoration(
                 labelText: 'Location',
                 border: OutlineInputBorder(
@@ -63,8 +94,8 @@ class _ProductAddingPageState extends State<ProductAddingPage> {
               ),
             ),
             const SizedBox(height: 20),
-            DropdownButtonFormField<String>(
-              value: _selectedCategory,
+            TextFormField(
+              controller: categoryController,
               decoration: InputDecoration(
                 labelText: 'Category',
                 border: OutlineInputBorder(
@@ -72,21 +103,10 @@ class _ProductAddingPageState extends State<ProductAddingPage> {
                 ),
                 prefixIcon: const Icon(Icons.category),
               ),
-              onChanged: (newValue) {
-                setState(() {
-                  _selectedCategory = newValue!;
-                });
-              },
-              items: ['Car', 'Bike', 'Fridge', 'Mixer']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
             ),
             const SizedBox(height: 20),
-            TextField(
+            TextFormField(
+              controller: rateController,
               decoration: InputDecoration(
                 labelText: 'Rate',
                 border: OutlineInputBorder(
@@ -97,7 +117,8 @@ class _ProductAddingPageState extends State<ProductAddingPage> {
               keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 20),
-            TextField(
+            TextFormField(
+              controller: descriptionController,
               decoration: InputDecoration(
                 labelText: 'Description',
                 border: OutlineInputBorder(
@@ -108,25 +129,12 @@ class _ProductAddingPageState extends State<ProductAddingPage> {
               maxLines: 3,
             ),
             const SizedBox(height: 20),
-            ElevatedButton.icon(
-              onPressed: () {
-                // Implement Google location selection
-              },
-              icon: const Icon(Icons.map),
-              label: const Text('Select Location'),
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Implement product adding functionality
+                addProduct(context);
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blueAccent, // Change button color
+                backgroundColor: const Color.fromARGB(255, 178, 103, 24),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -140,5 +148,24 @@ class _ProductAddingPageState extends State<ProductAddingPage> {
         ),
       ),
     );
+  }
+
+  addProduct(BuildContext context) {
+    final pro = Provider.of<FirestoreProvider>(context, listen: false);
+    final uid = pro.service.auth.currentUser!.uid;
+    ProductModel product = ProductModel(
+        name: productNameController.text,
+        price: rateController.text,
+        category: categoryController.text,
+        details: descriptionController.text,
+        imageUrl: imageController.text,
+        location: locationController.text);
+    pro.addProduct(
+        product: product, name: productNameController.text, uid: uid);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const BottomBar(),
+        ));
   }
 }

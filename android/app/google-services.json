@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "44808051687",
+    "project_id": "sellr-708b3",
+    "storage_bucket": "sellr-708b3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:44808051687:android:9574d352926f9c6d977b42",
+        "android_client_info": {
+          "package_name": "com.example.sellr_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrkzLzMwwe3t27ymKAZacBndnW8_93FMQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

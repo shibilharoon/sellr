@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
+import 'package:sellr_app/controller/auth_provider.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -71,19 +75,21 @@ class _SettingsPageState extends State<SettingsPage> {
               },
             ),
             const Divider(height: 20, thickness: 1),
-            ListTile(
-              title: const Text(
-                'Log Out',
-                style: TextStyle(fontSize: 18),
+            Consumer<AuthProviders>(
+              builder: (context, value, child) => ListTile(
+                title: const Text(
+                  'Log Out',
+                  style: TextStyle(fontSize: 18),
+                ),
+                subtitle: const Text(
+                  'Log out from your account',
+                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                ),
+                leading: const Icon(Icons.exit_to_app),
+                onTap: () {
+                  value.signOut();
+                },
               ),
-              subtitle: const Text(
-                'Log out from your account',
-                style: TextStyle(fontSize: 14, color: Colors.grey),
-              ),
-              leading: const Icon(Icons.exit_to_app),
-              onTap: () {
-                // Implement log out logic here
-              },
             ),
           ],
         ),

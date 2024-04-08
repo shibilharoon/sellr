@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sellr_app/controller/firestore_provider.dart';
+import 'package:sellr_app/controller/image_provider.dart';
+import 'package:sellr_app/model/product_model.dart';
+import 'package:sellr_app/view/details.dart';
 import 'package:sellr_app/view/notification.dart';
 import 'package:sellr_app/view/widgets/categories.dart';
-import 'package:sellr_app/view/widgets/itembox.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -92,95 +96,69 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 25, right: 25, top: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Top Selling",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "See All",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.all(10),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ImageContainerWidget(
-                      imagePath: "assets/image/car.jpeg",
-                      name: "Lamborghini urus",
-                      rate: "2cr",
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    ImageContainerWidget(
-                        imagePath: "assets/image/bike.webp",
-                        name: "Lamborghini urus",
-                        rate: "2cr"),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    ImageContainerWidget(
-                        imagePath: "assets/image/car.jpeg",
-                        name: "Lamborghini urus",
-                        rate: "2cr"),
-                  ],
+            Consumer<FirestoreProvider>(
+              builder: (context, value, child) => GridView.builder(
+                itemCount: value.productList.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
                 ),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(left: 25, right: 25, top: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "New In",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "See All",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.all(10),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ImageContainerWidget(
-                        imagePath: "assets/image/car.jpeg",
-                        name: "Lamborghini urus",
-                        rate: "2cr"),
-                    SizedBox(
-                      width: 10,
+                itemBuilder: (context, index) {
+                  final ProductModel product = value.productList[index];
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GestureDetector(
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              ProductDetailsPage(product: product),
+                        ),
+                      ),
+                      child: Consumer<ImageProviders>(
+                        builder: (context, value, child) => Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.white,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                Container(
+                                  color: Colors.black12,
+                                  child: Image.network(
+                                    product.imageUrl ?? "",
+                                    height: 120,
+                                  ),
+                                ),
+                                Text(
+                                  product.name!,
+                                  style: const TextStyle(fontSize: 14),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 6, right: 6),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "₹${product.price}",
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                    ImageContainerWidget(
-                        imagePath: "assets/image/bike.webp",
-                        name: "Lamborghini urus",
-                        rate: "2cr"),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    ImageContainerWidget(
-                        imagePath: "assets/image/car.jpeg",
-                        name: "Lamborghini urus",
-                        rate: "2cr"),
-                  ],
-                ),
+                  );
+                },
               ),
             ),
           ],

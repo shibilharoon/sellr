@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sellr_app/model/product_model.dart';
 
 class ProductDetailsPage extends StatelessWidget {
-  const ProductDetailsPage({super.key});
+  ProductDetailsPage({super.key, this.product});
+  ProductModel? product;
 
   @override
   Widget build(BuildContext context) {
@@ -38,13 +40,13 @@ class ProductDetailsPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            const Text(
-              'Product Name',
+            Text(
+              product!.name ?? "",
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
-            const Text(
-              'Location',
+            Text(
+              product!.location ?? "",
               style: TextStyle(fontSize: 18, color: Colors.grey),
             ),
             const SizedBox(height: 10),
@@ -58,8 +60,8 @@ class ProductDetailsPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  'Rate: \$50',
+                Text(
+                  product!.price ?? "",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 ElevatedButton(
@@ -91,7 +93,10 @@ class ProductDetailsPage extends StatelessWidget {
                   backgroundColor: const Color.fromARGB(255, 16, 100, 19),
                   textStyle: const TextStyle(fontSize: 16),
                 ),
-                child: const Text('Chat',style: TextStyle(color: Colors.white),),
+                child: const Text(
+                  'Chat',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
             const SizedBox(height: 20),
@@ -100,8 +105,8 @@ class ProductDetailsPage extends StatelessWidget {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
-            const Text(
-              'Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+             Text(
+              product!.details??"",
               style: TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 20),
