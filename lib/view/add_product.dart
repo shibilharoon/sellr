@@ -24,6 +24,8 @@ class _ProductAddingPageState extends State<ProductAddingPage> {
   TextEditingController descriptionController = TextEditingController();
   TextEditingController categoryController = TextEditingController();
   TextEditingController locationController = TextEditingController();
+  TextEditingController ownerName = TextEditingController();
+  TextEditingController ownerPhone = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +62,7 @@ class _ProductAddingPageState extends State<ProductAddingPage> {
                                   : const AssetImage(
                                           "assets/image/add image png.png")
                                       as ImageProvider),
-                          color: const Color.fromARGB(255, 178, 103, 24),
+                          color: const Color.fromARGB(255, 219, 217, 216),
                           borderRadius: BorderRadius.circular(20)),
                       child: const Icon(Icons.add),
                     ),
@@ -94,6 +96,28 @@ class _ProductAddingPageState extends State<ProductAddingPage> {
               ),
             ),
             const SizedBox(height: 20),
+            // TextField(
+            //   controller: ownerName,
+            //   decoration: InputDecoration(
+            //     labelText: 'Owner Name',
+            //     border: OutlineInputBorder(
+            //       borderRadius: BorderRadius.circular(10),
+            //     ),
+            //     prefixIcon: const Icon(Icons.person),
+            //   ),
+            // ),
+            // const SizedBox(height: 20),
+            // TextField(
+            //   controller: ownerPhone,
+            //   decoration: InputDecoration(
+            //     labelText: 'Owner Phone',
+            //     border: OutlineInputBorder(
+            //       borderRadius: BorderRadius.circular(10),
+            //     ),
+            //     prefixIcon: const Icon(Icons.phone),
+            //   ),
+            // ),
+            // const SizedBox(height: 20),
             TextFormField(
               controller: categoryController,
               decoration: InputDecoration(
@@ -150,22 +174,28 @@ class _ProductAddingPageState extends State<ProductAddingPage> {
     );
   }
 
-  addProduct(BuildContext context) {
+  addProduct(BuildContext context) async {
     final pro = Provider.of<FirestoreProvider>(context, listen: false);
+    final proImg = Provider.of<ImageProviders>(context, listen: false);
     final uid = pro.service.auth.currentUser!.uid;
+    await pro.addProductImage(
+        productname: productNameController.text,
+        fileimage: File(proImg.selectedImage!.path));
     ProductModel product = ProductModel(
+        // ownerName: ownerName.text,
+        // ownerPhone: ownerPhone.text,
         name: productNameController.text,
         price: rateController.text,
         category: categoryController.text,
         details: descriptionController.text,
-        imageUrl: imageController.text,
+        imageUrl: pro.service.downloadUrl,
         location: locationController.text);
     pro.addProduct(
         product: product, name: productNameController.text, uid: uid);
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const BottomBar(),
+          builder: (context) => BottomBar(),
         ));
   }
 }

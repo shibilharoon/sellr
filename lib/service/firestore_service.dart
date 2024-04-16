@@ -4,7 +4,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:sellr_app/model/product_model.dart';
 import 'package:sellr_app/model/user_model.dart';
 
-
 class FirestoreService {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -24,7 +23,8 @@ class FirestoreService {
       throw Exception();
     }
   }
- addProductImage({required String productname, required fileimage}) async {
+
+  addProductImage({required String productname, required fileimage}) async {
     Reference folder = storage.child('productimage');
     Reference image = folder.child("${productname}.jpg");
     try {
@@ -34,17 +34,22 @@ class FirestoreService {
       throw Exception();
     }
   }
+
   updateProfileInfo(
       {required String name,
       required String email,
       required String number,
-      required String image}) async {
+      required String image,
+      required String place,
+      required String bio}) async {
     try {
       UserModel user = UserModel(
           name: name,
           email: email,
           phonenumber: number,
           image: image,
+          place: place,
+          bio:bio,
           uid: auth.currentUser!.uid);
       await firestore
           .collection('user')
@@ -61,33 +66,6 @@ class FirestoreService {
     try {
       await image.putFile(fileimage);
       downloadUrl = await image.getDownloadURL();
-    } catch (e) {
-      throw Exception();
-    }
-  }
-
-
-  addToFavoraits(ProductModel product, String productname) async {
-    try {
-      await firestore
-          .collection('user')
-          .doc(auth.currentUser!.uid)
-          .collection('favoraits')
-          .doc(productname)
-          .set(product.toJson());
-    } catch (e) {
-      throw Exception();
-    }
-  }
-
-  deleteFavoritItems(String productname) async {
-    try {
-      await firestore
-          .collection('user')
-          .doc(auth.currentUser!.uid)
-          .collection('favoraits')
-          .doc(productname)
-          .delete();
     } catch (e) {
       throw Exception();
     }

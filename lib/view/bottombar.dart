@@ -7,7 +7,6 @@ import 'package:sellr_app/view/home_page.dart';
 
 import 'package:sellr_app/view/profile.dart';
 
-
 class BottomBar extends StatefulWidget {
   const BottomBar({super.key});
 

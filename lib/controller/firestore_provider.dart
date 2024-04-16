@@ -8,7 +8,6 @@ import 'package:sellr_app/service/firestore_service.dart';
 class FirestoreProvider extends ChangeNotifier {
   FirestoreService service = FirestoreService();
   List<ProductModel> productList = [];
-  List<ProductModel> favoraits = [];
   List<String> categoryList = [];
   String? selectedCategory;
   UserModel? currentUser;
@@ -21,6 +20,8 @@ class FirestoreProvider extends ChangeNotifier {
           .doc(service.auth.currentUser!.uid)
           .get();
       currentUser = UserModel.fromJson(snapshot.data()!);
+      print("name ${currentUser!.name}");
+      notifyListeners();
       return currentUser;
     } catch (e) {
       throw Exception(e);
@@ -92,20 +93,6 @@ class FirestoreProvider extends ChangeNotifier {
     fetchProducts();
   }
 
-  updateUserInfo({
-    required String name,
-    required String email,
-    required String number,
-    required String image,
-  }) {
-    return service.updateProfileInfo(
-        name: name, email: email, number: number, image: image);
-  }
-
-  addProfileImage({required String username, required fileimage}) {
-    return service.addProfileImage(username: username, fileimage: fileimage);
-  }
-
   addProduct(
       {required ProductModel product,
       required String name,
@@ -113,7 +100,29 @@ class FirestoreProvider extends ChangeNotifier {
     return service.addProduct(product, name, uid);
   }
 
+  addProductImage({required String productname, required fileimage}) {
+    return service.addProductImage(
+        productname: productname, fileimage: fileimage);
+  }
 
+  updateUserInfo({
+    required String name,
+    required String email,
+    required String number,
+    required String image,
+    required String place,
+    required String bio,
+  }) {
+    return service.updateProfileInfo(
+        name: name,
+        email: email,
+        number: number,
+        image: image,
+        place: place,
+        bio: bio);
+  }
 
- 
+  addProfileImage({required String username, required fileimage}) {
+    return service.addProfileImage(username: username, fileimage: fileimage);
+  }
 }

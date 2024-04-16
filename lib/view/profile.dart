@@ -1,14 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sellr_app/controller/firestore_provider.dart';
 import 'package:sellr_app/view/edit_user.dart';
 import 'package:sellr_app/view/settings.dart';
 import 'package:sellr_app/view/terms&conditions.dart';
 import 'package:sellr_app/view/widgets/infoitem.dart';
 
-class UserProfileScreen extends StatelessWidget {
+class UserProfileScreen extends StatefulWidget {
   const UserProfileScreen({super.key});
 
   @override
+  State<UserProfileScreen> createState() => _UserProfileScreenState();
+}
+
+class _UserProfileScreenState extends State<UserProfileScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<FirestoreProvider>(context, listen: false).fetchCurrentUser();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final firePro = Provider.of<FirestoreProvider>(context, listen: true);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -25,7 +39,10 @@ class UserProfileScreen extends StatelessWidget {
             icon: const Icon(Icons.edit),
             onPressed: () {
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const EditProfileScreen()),
+                MaterialPageRoute(
+                    builder: (context) => EditProfileScreen(
+                          currentUser: firePro.currentUser,
+                        )),
               );
             },
             color: Colors.black,
@@ -39,21 +56,29 @@ class UserProfileScreen extends StatelessWidget {
           children: [
             Column(
               children: [
-                const CircleAvatar(
-                  radius: 70,
-                  backgroundImage: AssetImage('assets/image/dp.jpeg'),
+                Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    image: DecorationImage(
+                        image: firePro.currentUser?.image != null
+                            ? NetworkImage(firePro.currentUser!.image!)
+                            : const AssetImage("assets/image/dp.jpeg")
+                                as ImageProvider,
+                        fit: BoxFit.cover),
+                  ),
                 ),
-                const SizedBox(height: 20),
-                const Text(
-                  'John Doe',
+                Text(
+                  firePro.currentUser?.name ?? "",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 24,
                     color: Colors.black,
                   ),
                 ),
-                const Text(
-                  'john.doe@example.com',
+                Text(
+                  firePro.currentUser?.email ?? "",
                   style: TextStyle(color: Colors.grey),
                 ),
                 const SizedBox(height: 20),
@@ -62,21 +87,27 @@ class UserProfileScreen extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Padding(
+                  child: Padding(
                     padding: EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        InfoItem(label: 'Phone Number', value: '+1234567890'),
-                        SizedBox(height: 16),
-                        InfoItem(label: 'Place', value: 'New York, USA'),
-                        SizedBox(height: 16),
-                        InfoItem(
-                          label: 'Bio',
-                          value:
-                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                        ),
-                      ],
+                    child: Container(
+                      height: 250,
+                      width: 350,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          InfoItem(
+                              label: 'Phone Number',
+                              value: firePro.currentUser?.phonenumber ?? ""),
+                          SizedBox(height: 16),
+                          InfoItem(
+                              label: 'Place',
+                              value: firePro.currentUser?.place ?? ""),
+                          SizedBox(height: 16),
+                          InfoItem(
+                              label: 'Bio',
+                              value: firePro.currentUser?.bio ?? ""),
+                        ],
+                      ),
                     ),
                   ),
                 ),
