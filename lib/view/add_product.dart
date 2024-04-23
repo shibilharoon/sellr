@@ -64,7 +64,6 @@ class _ProductAddingPageState extends State<ProductAddingPage> {
                                       as ImageProvider),
                           color: const Color.fromARGB(255, 219, 217, 216),
                           borderRadius: BorderRadius.circular(20)),
-                      child: const Icon(Icons.add),
                     ),
                   ),
                   const SizedBox(
@@ -158,7 +157,7 @@ class _ProductAddingPageState extends State<ProductAddingPage> {
                 addProduct(context);
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 178, 103, 24),
+                backgroundColor: const Color.fromARGB(255, 5, 65, 58),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -177,21 +176,25 @@ class _ProductAddingPageState extends State<ProductAddingPage> {
   addProduct(BuildContext context) async {
     final pro = Provider.of<FirestoreProvider>(context, listen: false);
     final proImg = Provider.of<ImageProviders>(context, listen: false);
-    final uid = pro.service.auth.currentUser!.uid;
+    final user = pro.currentUser;
+    final sellerUid = user!.uid;
+    final photoUrl = user.image;
+    final sellersName = user.name;
     await pro.addProductImage(
         productname: productNameController.text,
         fileimage: File(proImg.selectedImage!.path));
     ProductModel product = ProductModel(
-        // ownerName: ownerName.text,
-        // ownerPhone: ownerPhone.text,
         name: productNameController.text,
         price: rateController.text,
         category: categoryController.text,
         details: descriptionController.text,
         imageUrl: pro.service.downloadUrl,
-        location: locationController.text);
+        location: locationController.text,
+        sellerId: sellerUid,
+        sellerImg: photoUrl,
+        sellerName: sellersName);
     pro.addProduct(
-        product: product, name: productNameController.text, uid: uid);
+        product: product, name: productNameController.text, uid: sellerUid!);
     Navigator.push(
         context,
         MaterialPageRoute(

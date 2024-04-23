@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
+import 'package:sellr_app/controller/firestore_provider.dart';
 import 'package:sellr_app/model/product_model.dart';
 
 class ProductDetailsPage extends StatefulWidget {
-  ProductDetailsPage({super.key, this.product});
-  ProductModel? product;
+  ProductDetailsPage({super.key, required this.products});
+  ProductModel? products;
 
   @override
   State<ProductDetailsPage> createState() => _ProductDetailsPageState();
@@ -21,6 +23,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final firePro = Provider.of<FirestoreProvider>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -47,7 +50,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               height: 250,
               child: PageView(
                 children: [
-                  Image.network(widget.product!.imageUrl ?? ""),
+                  Image.network(widget.products!.imageUrl ?? ""),
                   // Image.asset('assets/image/bike.webp', fit: BoxFit.cover),
                   // Image.asset('assets/image/bike.webp', fit: BoxFit.cover),
                 ],
@@ -58,11 +61,14 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  widget.product!.name ?? "",
+                  widget.products!.name ?? "",
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 IconButton(
                     onPressed: () {
+                      firePro.addToFavourites(
+                          product: widget.products!,
+                          productname: widget.products!.name!);
                       changeIconColor();
                     },
                     icon: Icon(
@@ -73,7 +79,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             ),
             const SizedBox(height: 10),
             Text(
-              widget.product!.location ?? "",
+              widget.products!.location ?? "",
               style: TextStyle(fontSize: 18, color: Colors.grey),
             ),
             const SizedBox(height: 10),
@@ -88,7 +94,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  widget.product!.price ?? "",
+                  "₹ ${widget.products!.price ?? ""}",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 ElevatedButton(
@@ -96,7 +102,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     // Implement buy now functionality
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
+                    backgroundColor: Color.fromARGB(255, 25, 96, 154),
                     textStyle: const TextStyle(
                       fontSize: 16,
                     ),
@@ -117,7 +123,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   // Implement chat functionality
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 16, 100, 19),
+                  backgroundColor: const Color.fromARGB(255, 5, 65, 58),
                   textStyle: const TextStyle(fontSize: 16),
                 ),
                 child: const Text(
@@ -133,36 +139,11 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             ),
             const SizedBox(height: 10),
             Text(
-              widget.product!.details ?? "",
+              widget.products!.details ?? "",
               style: TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 20),
-            const Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CircleAvatar(
-                  radius: 30,
-                  backgroundImage: AssetImage('assets/image/dp.jpeg'),
-                ),
-                SizedBox(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 5),
-                    Text(
-                      "",
-                      style: TextStyle(fontSize: 16, color: Colors.grey),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
+
             const Divider(height: 20, thickness: 1),
             const SizedBox(height: 20),
             // const Text(

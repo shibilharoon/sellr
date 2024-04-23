@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
 import 'package:sellr_app/controller/auth_provider.dart';
 import 'package:sellr_app/controller/firestore_provider.dart';
@@ -8,10 +7,11 @@ import 'package:sellr_app/model/product_model.dart';
 import 'package:sellr_app/view/details.dart';
 import 'package:sellr_app/view/notification.dart';
 import 'package:sellr_app/view/search_page.dart';
+import 'package:sellr_app/view/settings.dart';
 import 'package:sellr_app/view/widgets/headingtext.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -33,231 +33,256 @@ class _HomePageState extends State<HomePage> {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 225, 223, 223),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20))),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 50,
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 5, 65, 58),
+        elevation: 0,
+        title: Row(
+          children: [
+            Icon(
+              Icons.shopping_cart,
+              color: Colors.white,
+              size: 30,
+            ),
+            SizedBox(width: 10),
+            Text(
+              'Sellr',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 24,
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
+        centerTitle: false,
+        actions: [
+          Stack(
+            children: [
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: ((context) => const NotificationPage())));
+                },
+                icon: Icon(
+                  Icons.notifications,
+                  color: Colors.white,
+                ),
+              ),
+              Positioned(
+                top: 8,
+                right: 8,
+                child: Container(
+                  padding: EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.red,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30, right: 25),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          "Sellr",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: ((context) =>
-                                    const NotificationPage())));
-                          },
-                          child: const Icon(
-                            Icons.notifications_sharp,
-                            size: 30,
-                          ),
-                        )
-                      ],
+                  child: Text(
+                    '3', // Assuming there are 3 notifications
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const SearchPage(),
-                          ));
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20)),
-                        child: const Padding(
-                          padding: EdgeInsets.all(15),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.search,
-                                color: Colors.black45,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                "Search",
-                                style: TextStyle(
-                                  color: Colors.black45,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    // Padding(
-                    //   padding: const EdgeInsets.all(10),
-                    //   child: TextFormField(
-                    //     decoration: InputDecoration(
-                    //         prefixIcon: const Icon(Icons.search),
-                    //         hintText: "Search",
-                    //         border: OutlineInputBorder(
-                    //             borderSide: BorderSide.none,
-                    //             borderRadius: BorderRadius.circular(20)),
-                    //         contentPadding: const EdgeInsets.all(10),
-                    //         fillColor: Color.fromARGB(255, 255, 255, 255),
-                    //         filled: true),
-                    //   ),
-                    // ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                ],
+                ),
+              ),
+            ],
+          ),
+          IconButton(
+            onPressed: () {
+              // Add action for another icon if needed
+            },
+            icon: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SettingsPage(),
+                    ));
+              },
+              child: Icon(
+                Icons.settings,
+                color: Colors.white,
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: HeadingText(heading: "Category"),
-          ),
-          SizedBox(
-            height: screenHeight * 0.08,
-            child: Consumer<FirestoreProvider>(
-              builder: (context, value, child) => ListView.builder(
-                itemCount: value.categoryList.length,
+        ],
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SearchPage(),
+                    ));
+              },
+              child: Container(
+                height: 50,
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(25),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.3),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.search,
+                      color: Colors.black54,
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      'Search',
+                      style: TextStyle(
+                        color: Colors.black54,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            HeadingText(heading: 'Category'),
+            const SizedBox(height: 10),
+            Consumer<FirestoreProvider>(
+              builder: (context, value, child) => SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  final String category = value.categoryList[index];
-                  return Padding(
-                    padding: const EdgeInsets.only(left: 15, top: 10),
-                    child: GestureDetector(
+                child: Row(
+                  children: value.categoryList.map((category) {
+                    final isSelected = value.selectedCategory == category;
+                    return GestureDetector(
                       onTap: () {
                         value.fetchProductsByCategory(category: category);
                         value.selectedCategory = category;
                       },
                       child: Container(
-                        width: screenWidth * 0.25,
-                        height: screenHeight * 0.05,
+                        margin: const EdgeInsets.only(right: 10),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          border: value.selectedCategory == category
+                          color: isSelected
+                              ? Color.fromARGB(255, 5, 65, 58)
+                              : Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          border: isSelected
                               ? Border.all(
-                                  color: Color.fromARGB(255, 225, 223, 223))
-                              : Border.all(color: Colors.transparent),
-                          color: Color.fromARGB(255, 255, 255, 255),
-                          borderRadius: BorderRadius.circular(15),
+                                  color: Color.fromARGB(255, 5, 65, 58))
+                              : null,
                         ),
-                        child: Center(
-                          child: Text(
-                            category,
-                            // style: GoogleFonts.urbanist(
-                            //   fontSize: 15,
-                            //   fontWeight: FontWeight.bold,
-                            //   color: Colors.white,
-                            // ),
+                        child: Text(
+                          category,
+                          style: TextStyle(
+                            color: isSelected ? Colors.white : Colors.black,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  }).toList(),
+                ),
               ),
             ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: HeadingText(heading: "Recommentations"),
-          ),
-          Expanded(
-            child: Consumer<FirestoreProvider>(
+            const SizedBox(height: 20),
+            HeadingText(heading: 'Recommendations'),
+            const SizedBox(height: 10),
+            Consumer<FirestoreProvider>(
               builder: (context, value, child) => GridView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
                 itemCount: value.productList.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  childAspectRatio: 0.7,
                 ),
                 itemBuilder: (context, index) {
                   final ProductModel product = value.productList[index];
-                  return Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: GestureDetector(
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              ProductDetailsPage(product: product),
-                        ),
+                  return GestureDetector(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            ProductDetailsPage(products: product),
                       ),
-                      child: Consumer<ImageProviders>(
-                        builder: (context, value, child) => Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.white,
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 5, 65, 58),
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(
+                            color:
+                                Color.fromARGB(255, 5, 65, 58).withOpacity(0.3),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: const Offset(0, 4),
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(15),
+                              topRight: Radius.circular(15),
+                            ),
+                            child: Image.network(
+                              product.imageUrl!,
+                              width: double.infinity,
+                              height: screenHeight * 0.2,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(10),
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Container(
-                                  color: Colors.black12,
-                                  child: Image.network(
-                                    product.imageUrl!,
-                                    height: 120,
-                                  ),
-                                ),
                                 Text(
                                   product.name!,
-                                  style: const TextStyle(fontSize: 14),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                      color: Colors.white),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 6, right: 6),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "₹${product.price}",
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
+                                const SizedBox(height: 5),
+                                Text(
+                                  '₹${product.price}',
+                                  style: TextStyle(
+                                    color: Colors.grey,
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                        ),
+                        ],
                       ),
                     ),
                   );
                 },
               ),
             ),
-          ),
-        ],
+            const SizedBox(height: 20),
+          ],
+        ),
       ),
     );
   }

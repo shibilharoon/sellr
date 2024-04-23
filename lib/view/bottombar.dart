@@ -31,7 +31,7 @@ class _BottomBarState extends State<BottomBar> {
       body: _screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: const Color.fromARGB(255, 231, 56, 47),
+        selectedItemColor: const Color.fromARGB(255, 5, 65, 58),
         unselectedItemColor: Colors.black,
         currentIndex: _currentIndex,
         onTap: (index) {

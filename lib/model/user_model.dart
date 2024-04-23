@@ -7,7 +7,7 @@ class UserModel {
   String? phonenumber;
   String? bio;
   UserModel(
-      {required this.name,
+      { this.name,
       this.image,
       this.email,
       this.phonenumber,

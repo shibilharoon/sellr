@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sellr_app/model/chat_model.dart';
 import 'package:sellr_app/model/product_model.dart';
 import 'package:sellr_app/model/user_model.dart';
 import 'package:sellr_app/service/firestore_service.dart';
@@ -8,10 +9,13 @@ import 'package:sellr_app/service/firestore_service.dart';
 class FirestoreProvider extends ChangeNotifier {
   FirestoreService service = FirestoreService();
   List<ProductModel> productList = [];
+  List<ProductModel> favourites = [];
   List<String> categoryList = [];
   String? selectedCategory;
   UserModel? currentUser;
   String searchQuery = '';
+   List<ChatModel> messages = [];
+  ScrollController scrollController = ScrollController();
 
   fetchCurrentUser() async {
     try {
@@ -125,4 +129,56 @@ class FirestoreProvider extends ChangeNotifier {
   addProfileImage({required String username, required fileimage}) {
     return service.addProfileImage(username: username, fileimage: fileimage);
   }
+
+  addToFavourites({required ProductModel product, required String productname}) {
+    return service.addToFavourites(product, productname);
+  }
+
+  List<ProductModel> fetchFavouriteItems() {
+    try {
+      service.firestore
+          .collection('user')
+          .doc(service.auth.currentUser!.uid)
+          .collection('favourites')
+          .snapshots()
+          .listen((favouriteitems) {
+        favourites = favouriteitems.docs
+            .map((doc) => ProductModel.fromJson(doc.data()))
+            .toList();
+        notifyListeners();
+      });
+      return favourites;
+    } catch (e) {
+      throw Exception();
+    }
+  }
+
+  deleteFavourites({required String productname}) {
+    return service.deleteFavouriteItems(productname);
+  }
+
+    List<ChatModel> getMessages(String currentUserId, String recieverId) {
+    List ids = [currentUserId, recieverId];
+    ids.sort();
+    String chatroomid = ids.join('_');
+    service.firestore
+        .collection('chats')
+        .doc(chatroomid)
+        .collection('message')
+        .orderBy("time", descending: false)
+        .snapshots()
+        .listen((message) {
+      messages =
+          message.docs.map((doc) => ChatModel.toJson(doc.data())).toList();
+      notifyListeners();
+      scrollDown();
+    });
+    return messages;
+  }
+
+  void scrollDown() => WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (scrollController.hasClients) {
+          scrollController.jumpTo(scrollController.position.maxScrollExtent);
+        }
+      });
 }

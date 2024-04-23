@@ -16,7 +16,7 @@ class NotificationMessageWidget extends StatelessWidget {
         height: 70,
         width: 350,
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 234, 234, 234),
+          color: const Color.fromARGB(255, 5, 65, 58),
           borderRadius: BorderRadius.circular(15),
         ),
         child: Padding(
@@ -30,7 +30,10 @@ class NotificationMessageWidget extends StatelessWidget {
               const SizedBox(
                 width: 15,
               ),
-              Text(message),
+              Text(
+                message,
+                style: TextStyle(color: Colors.white),
+              ),
             ],
           ),
         ),

@@ -30,7 +30,7 @@ class _ChatHomeState extends State<ChatHome> {
               fontWeight: FontWeight.bold, fontSize: 22, color: Colors.black),
         ),
         centerTitle: true,
-         automaticallyImplyLeading: false, 
+        automaticallyImplyLeading: false,
       ),
       body: Column(
         children: [
@@ -58,10 +58,12 @@ class _ChatHomeState extends State<ChatHome> {
                         builder: ((context) => const ChatScreen())));
                   },
                   child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-                    margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 16, horizontal: 24),
+                    margin:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                     decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 223, 223, 223),
+                      color: const Color.fromARGB(255, 5, 65, 58),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Row(
@@ -92,14 +94,14 @@ class _ChatHomeState extends State<ChatHome> {
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
-                                    color: Colors.black),
+                                    color: Colors.white),
                               ),
                               const SizedBox(height: 4),
                               Text(
                                 "Last message",
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                style: TextStyle(color: Colors.grey.shade600),
+                                style: TextStyle(color: Colors.white),
                               ),
                             ],
                           ),

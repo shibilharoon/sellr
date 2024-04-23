@@ -69,5 +69,32 @@ class FirestoreService {
     } catch (e) {
       throw Exception();
     }
+
+
+  }  addToFavourites(ProductModel product, String productname) async {
+    try {
+      await firestore
+          .collection('user')
+          .doc(auth.currentUser!.uid)
+          .collection('favourites')
+          .doc(productname)
+          .set(product.toJson());
+    } catch (e) {
+      throw Exception();
+    }
   }
+
+  deleteFavouriteItems(String productname) async {
+    try {
+      await firestore
+          .collection('user')
+          .doc(auth.currentUser!.uid)
+          .collection('favourites')
+          .doc(productname)
+          .delete();
+    } catch (e) {
+      throw Exception();
+    }
+  }
+
 }

@@ -38,27 +38,27 @@ class _SettingsPageState extends State<SettingsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            ListTile(
-              title: const Text(
-                'Dark Theme',
-                style: TextStyle(fontSize: 18),
-              ),
-              subtitle: const Text(
-                'Switch to a darker theme for better viewing experience',
-                style: TextStyle(fontSize: 14, color: Colors.grey),
-              ),
-              leading: const Icon(Icons.dark_mode),
-              trailing: Switch(
-                value: _darkThemeEnabled,
-                onChanged: (value) {
-                  setState(() {
-                    _darkThemeEnabled = value;
-                    // Implement theme toggle logic here
-                  });
-                },
-                activeColor: Colors.blue,
-              ),
-            ),
+            // ListTile(
+            //   title: const Text(
+            //     'Dark Theme',
+            //     style: TextStyle(fontSize: 18),
+            //   ),
+            //   subtitle: const Text(
+            //     'Switch to a darker theme for better viewing experience',
+            //     style: TextStyle(fontSize: 14, color: Colors.grey),
+            //   ),
+            //   leading: const Icon(Icons.dark_mode),
+            //   trailing: Switch(
+            //     value: _darkThemeEnabled,
+            //     onChanged: (value) {
+            //       setState(() {
+            //         _darkThemeEnabled = value;
+            //         // Implement theme toggle logic here
+            //       });
+            //     },
+            //     activeColor: Colors.blue,
+            //   ),
+            // ),
             const SizedBox(height: 20),
             ListTile(
               title: const Text(

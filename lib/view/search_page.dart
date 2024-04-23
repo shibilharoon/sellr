@@ -95,7 +95,7 @@ class SearchPage extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              ProductDetailsPage(product: product),
+                              ProductDetailsPage(products: product),
                         ),
                       ),
                       child: Container(
