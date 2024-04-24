@@ -3,10 +3,12 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:sellr_app/controller/firestore_provider.dart';
 import 'package:sellr_app/model/product_model.dart';
+import 'package:sellr_app/view/chat_home.dart';
+import 'package:sellr_app/view/chat_screen.dart';
 
 class ProductDetailsPage extends StatefulWidget {
   ProductDetailsPage({super.key, required this.products});
-  ProductModel? products;
+  ProductModel products;
 
   @override
   State<ProductDetailsPage> createState() => _ProductDetailsPageState();
@@ -120,7 +122,11 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  // Implement chat functionality
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => ChatScreen(
+                      productModel: widget.products,
+                    ),
+                  ));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(255, 5, 65, 58),
@@ -143,7 +149,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               style: TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 20),
-
+            // Text(widget.products.sellerName!),
             const Divider(height: 20, thickness: 1),
             const SizedBox(height: 20),
             // const Text(

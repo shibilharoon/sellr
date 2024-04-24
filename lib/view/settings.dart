@@ -12,7 +12,7 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  bool _darkThemeEnabled = false;
+  // bool _darkThemeEnabled = false;
 
   @override
   Widget build(BuildContext context) {

@@ -4,7 +4,6 @@ import 'package:sellr_app/view/add_product.dart';
 import 'package:sellr_app/view/chat_home.dart';
 import 'package:sellr_app/view/favorites.dart';
 import 'package:sellr_app/view/home_page.dart';
-
 import 'package:sellr_app/view/profile.dart';
 
 class BottomBar extends StatefulWidget {
@@ -22,60 +21,77 @@ class _BottomBarState extends State<BottomBar> {
     const ChatHome(),
     const ProductAddingPage(),
     const FavoriteItemListPage(),
-    UserProfileScreen(),
+    const UserProfileScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: _screens[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: const Color.fromARGB(255, 5, 65, 58),
-        unselectedItemColor: Colors.black,
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(
-              FontAwesomeIcons.house,
-              size: 20,
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.white,
+        child: Container(
+          height: 60,
+          decoration: const BoxDecoration(
+            color: Color.fromARGB(255, 214, 215, 215),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20),
             ),
-            label: '',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              FontAwesomeIcons.message,
-              size: 20,
-            ),
-            label: '',
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              _buildNavBarItem(FontAwesomeIcons.house, 0),
+              _buildNavBarItem(FontAwesomeIcons.comment, 1),
+              _buildAddButton(),
+              _buildNavBarItem(FontAwesomeIcons.heart, 3),
+              _buildNavBarItem(Icons.person, 4),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              FontAwesomeIcons.plus,
-              size: 20,
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              FontAwesomeIcons.heart,
-              size: 20,
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person_2,
-              size: 28,
-            ),
-            label: '',
-          ),
-        ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNavBarItem(IconData icon, int index) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _currentIndex = index;
+        });
+      },
+      child: SizedBox(
+        width: 70,
+        height: 60,
+        child: Icon(
+          icon,
+          size: 25,
+          color: _currentIndex == index
+              ? const Color.fromARGB(255, 5, 65, 58)
+              : Colors.black54,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAddButton() {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _currentIndex = 2;
+        });
+      },
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width / 5,
+        height: 60,
+        child: const Icon(
+          FontAwesomeIcons.circlePlus,
+          size: 28,
+          color: Color.fromARGB(255, 5, 65, 58),
+        ),
       ),
     );
   }

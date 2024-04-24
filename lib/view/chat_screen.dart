@@ -1,13 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sellr_app/controller/firestore_provider.dart';
+import 'package:sellr_app/model/product_model.dart';
+import 'package:sellr_app/service/auth_services.dart';
+import 'package:sellr_app/service/chat_service.dart';
 
-class ChatScreen extends StatelessWidget {
-  const ChatScreen({Key? key});
+class ChatScreen extends StatefulWidget {
+  final ProductModel productModel;
+
+  const ChatScreen({Key? key, required this.productModel});
+
+  @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  TextEditingController messagecontroller = TextEditingController();
+
+  AuthService service = AuthService();
+
+  @override
+  void initState() {
+    super.initState();
+    final currentUserid = service.firebaseAuth.currentUser!.uid;
+    Provider.of<FirestoreProvider>(context, listen: false)
+        .getMessages(currentUserid, widget.productModel.sellerId!);
+    print('UserIds 1 ${currentUserid} 2 ${widget.productModel.sellerId}');
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 15, 62, 60),
       appBar: AppBar(
-        title: const Text('John Doe', style: TextStyle(fontWeight: FontWeight.bold)), // Replace with actual user name
+        backgroundColor: Color.fromARGB(255, 15, 62, 60),
+        title: Text("${widget.productModel.sellerName}",
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white)), // Replace with actual user name
         actions: [
           // IconButton(
           //   onPressed: () {
@@ -15,97 +45,195 @@ class ChatScreen extends StatelessWidget {
           //   icon: const Icon(Icons.call),
           // ),
           IconButton(
-            onPressed: () {
-            },
-            icon: const Icon(Icons.menu),
+            onPressed: () {},
+            icon: const Icon(Icons.menu, color: Colors.white),
           ),
         ],
       ),
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
-              reverse: true,
-              itemCount: 10, 
-              itemBuilder: (context, index) {
-                final isSenderMessage = index % 2 == 0;
-                return Container(
-                  margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                  child: Column(
-                    crossAxisAlignment: isSenderMessage ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: isSenderMessage ? const Color.fromARGB(255, 0, 0, 0) : Colors.grey.shade300,
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(isSenderMessage ? 10 : 1),
-                            bottomRight: Radius.circular(isSenderMessage ? 1 : 10),
-                            topLeft: const Radius.circular(10),
-                            topRight: const Radius.circular(10),
+            child:
+                Consumer<FirestoreProvider>(builder: (context, value, child) {
+              return ListView.builder(
+                itemCount: value.messages.length,
+                itemBuilder: (context, index) {
+                  final chats = value.messages[index];
+                  DateTime dateTime = chats.time!.toDate();
+                  // String formattedTime = DateFormat.jm().format(dateTime);
+                  var aligmnet =
+                      chats.senderId == service.firebaseAuth.currentUser!.uid
+                          ? Alignment.centerRight
+                          : Alignment.centerLeft;
+                  var bubbleColor =
+                      chats.senderId == service.firebaseAuth.currentUser!.uid
+                          ? Color.fromARGB(255, 255, 255, 255)
+                          : Color.fromARGB(255, 150, 212, 197);
+                  var borderRadius =
+                      chats.senderId == service.firebaseAuth.currentUser!.uid
+                          ? const BorderRadius.only(
+                              topLeft: Radius.circular(15),
+                              bottomLeft: Radius.circular(15),
+                              topRight: Radius.circular(15),
+                              bottomRight: Radius.circular(15))
+                          : const BorderRadius.only(
+                              topRight: Radius.circular(15),
+                              bottomLeft: Radius.circular(15),
+                              bottomRight: Radius.circular(15),
+                              topLeft: Radius.circular(15));
+                  if (chats.messagetype == 'text') {
+                    return Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 5, 10, 20),
+                      child: Align(
+                        alignment: aligmnet,
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                            minHeight: 40,
+                            minWidth: 50,
+                            maxWidth: 250,
                           ),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Message $index',
-                              style: TextStyle(color: isSenderMessage ? Colors.white : Colors.black),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: bubbleColor,
+                              borderRadius: borderRadius,
                             ),
-                          ],
+                            child: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    chats.content!,
+                                    style: TextStyle(
+                                      color: Color.fromARGB(255, 0, 0, 0),
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 50,
+                                    child: const Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        // Text(
+                                        //   formattedTime,
+                                        //   style: TextStyle(
+                                        //       color: Colors.black.withOpacity(0.7)),
+                                        // )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                      const SizedBox(height: 4),
-                      Row(
-                        mainAxisAlignment: isSenderMessage ? MainAxisAlignment.end : MainAxisAlignment.start,
-                        children: const [
-                          Text(
-                            '10:30 AM', 
-                            style: TextStyle(fontSize: 12, color: Colors.grey),
+                    );
+                  } else {
+                    return Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 20),
+                      child: Align(
+                        alignment: aligmnet,
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                            minHeight: 50,
+                            minWidth: 200,
                           ),
-                        ],
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: bubbleColor,
+                              borderRadius: borderRadius,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: [
+                                  Image.network(
+                                    chats.content!,
+                                    height: 300,
+                                  ),
+                                  SizedBox(
+                                    width: 200,
+                                    child: const Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        // Text(
+                                        //   formattedTime,
+                                        //   style: TextStyle(
+                                        //       color: Colors.black.withOpacity(0.7)),
+                                        // )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                    ],
-                  ),
-                );
-              },
-            ),
+                    );
+                  }
+                },
+              );
+            }),
           ),
-          Container(
-            padding: const EdgeInsets.all(10),
-            color: Colors.grey.shade200,
-            child: Row(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    // Action to attach image
-                  },
-                  icon: const Icon(Icons.camera_alt),
-                ),
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(30),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: Color.fromARGB(255, 255, 255, 255),
+              ),
+              child: Row(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      // Action to attach image
+                    },
+                    icon: const Icon(
+                      Icons.camera_alt,
+                      color: Color.fromARGB(255, 0, 0, 0),
                     ),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        hintText: 'Type a message...',
-                        border: InputBorder.none,
+                  ),
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 255, 255, 255),
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: TextFormField(
+                        controller: messagecontroller,
+                        decoration: const InputDecoration(
+                          hintText: 'Type a message...',
+                          border: InputBorder.none,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.send_rounded),
-                ),
-              ],
+                  IconButton(
+                    onPressed: () {
+                      sendMessage();
+                    },
+                    icon: const Icon(
+                      Icons.send_rounded,
+                      color: Color.fromARGB(255, 0, 0, 0),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
       ),
     );
+  }
+
+  sendMessage() async {
+    if (messagecontroller.text.isNotEmpty) {
+      await ChatService().sendMessage(
+          widget.productModel.sellerId!, messagecontroller.text, 'text');
+      messagecontroller.clear();
+    }
   }
 }

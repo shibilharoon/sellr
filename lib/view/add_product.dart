@@ -196,9 +196,10 @@ class _ProductAddingPageState extends State<ProductAddingPage> {
     pro.addProduct(
         product: product, name: productNameController.text, uid: sellerUid!);
     Navigator.push(
+        // ignore: use_build_context_synchronously
         context,
         MaterialPageRoute(
-          builder: (context) => BottomBar(),
+          builder: (context) => const BottomBar(),
         ));
   }
 }

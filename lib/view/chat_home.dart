@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sellr_app/model/product_model.dart';
 import 'package:sellr_app/view/chat_screen.dart';
 
 class ChatHome extends StatefulWidget {
@@ -9,6 +10,8 @@ class ChatHome extends StatefulWidget {
 }
 
 class _ChatHomeState extends State<ChatHome> {
+    ProductModel? product;
+
   final TextEditingController _searchController = TextEditingController();
 
   @override
@@ -55,7 +58,7 @@ class _ChatHomeState extends State<ChatHome> {
                 return GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: ((context) => const ChatScreen())));
+                        builder: ((context) =>  ChatScreen(productModel:product!,))));
                   },
                   child: Container(
                     padding: const EdgeInsets.symmetric(
@@ -97,7 +100,7 @@ class _ChatHomeState extends State<ChatHome> {
                                     color: Colors.white),
                               ),
                               const SizedBox(height: 4),
-                              Text(
+                              const Text(
                                 "Last message",
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,

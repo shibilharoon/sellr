@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sellr_app/view/bottombar.dart';
 import 'package:sellr_app/view/login_screen.dart';
+import 'package:sellr_app/view/splash_screen.dart';
 
 class AuthGate extends StatefulWidget {
   const AuthGate({super.key});
@@ -20,7 +21,7 @@ class _AuthGateState extends State<AuthGate> {
           if (snapshot.hasData) {
             return const BottomBar();
           } else {
-            return const LoginPage();
+            return const SplashScreen();
           }
         },
       ),
