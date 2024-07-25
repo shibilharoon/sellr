@@ -10,7 +10,7 @@ class ChatHome extends StatefulWidget {
 }
 
 class _ChatHomeState extends State<ChatHome> {
-    ProductModel? product;
+  ProductModel? product;
 
   final TextEditingController _searchController = TextEditingController();
 
@@ -58,23 +58,25 @@ class _ChatHomeState extends State<ChatHome> {
                 return GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: ((context) =>  ChatScreen(productModel:product!,))));
+                        builder: ((context) => ChatScreen(
+                              productModel: product!,
+                            ))));
                   },
                   child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 16, horizontal: 24),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 24),
                     margin:
                         const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                     decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 5, 65, 58),
+                      color: Color.fromARGB(255, 60, 27, 14),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          height: 60,
-                          width: 60,
+                          height: 54,
+                          width: 50,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             border: Border.all(

@@ -157,7 +157,7 @@ class _ProductAddingPageState extends State<ProductAddingPage> {
                 addProduct(context);
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 5, 65, 58),
+                backgroundColor: Color.fromARGB(255, 60, 27, 14),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),

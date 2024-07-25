@@ -70,7 +70,7 @@ class _BottomBarState extends State<BottomBar> {
           icon,
           size: 25,
           color: _currentIndex == index
-              ? const Color.fromARGB(255, 5, 65, 58)
+              ? Color.fromARGB(255, 60, 27, 14)
               : Colors.black54,
         ),
       ),
@@ -87,11 +87,8 @@ class _BottomBarState extends State<BottomBar> {
       child: SizedBox(
         width: MediaQuery.of(context).size.width / 5,
         height: 60,
-        child: const Icon(
-          FontAwesomeIcons.circlePlus,
-          size: 28,
-          color: Color.fromARGB(255, 5, 65, 58),
-        ),
+        child: const Icon(FontAwesomeIcons.circlePlus,
+            size: 28, color: Color.fromARGB(255, 60, 27, 14)),
       ),
     );
   }

@@ -31,9 +31,9 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 15, 62, 60),
+      backgroundColor: Color.fromARGB(255, 60, 27, 14),
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 15, 62, 60),
+        backgroundColor: Color.fromARGB(255, 60, 27, 14),
         title: Text("${widget.productModel.sellerName}",
             style: TextStyle(
                 fontWeight: FontWeight.bold,

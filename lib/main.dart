@@ -6,6 +6,8 @@ import 'package:sellr_app/controller/firestore_provider.dart';
 import 'package:sellr_app/controller/image_provider.dart';
 import 'package:sellr_app/firebase_options.dart';
 import 'package:sellr_app/view/auth_gate.dart';
+import 'package:sellr_app/view/bottombar.dart';
+import 'package:sellr_app/view/home_page.dart';
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: ((context) => ImageProviders())),
       ],
       child: const MaterialApp(
-          debugShowCheckedModeBanner: false, home: AuthGate()),
+          debugShowCheckedModeBanner: false, home: BottomBar()),
     );
   }
 }

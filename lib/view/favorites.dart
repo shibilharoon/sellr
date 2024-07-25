@@ -48,7 +48,7 @@ class _FavoriteItemListPageState extends State<FavoriteItemListPage> {
                       ));
                 },
                 child: Card(
-                  color: Color.fromARGB(255, 5, 65, 58),
+                  color: Color.fromARGB(255, 60, 27, 14),
                   elevation: 4,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -60,8 +60,8 @@ class _FavoriteItemListPageState extends State<FavoriteItemListPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          width: 100,
-                          height: 100,
+                          width: 80,
+                          height: 80,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
                             boxShadow: [

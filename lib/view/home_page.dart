@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 5, 65, 58),
+        backgroundColor: Color.fromARGB(255, 60, 27, 14),
         elevation: 0,
         title: Row(
           children: [
@@ -175,12 +175,12 @@ class _HomePageState extends State<HomePage> {
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
                           color: isSelected
-                              ? Color.fromARGB(255, 5, 65, 58)
+                              ? Color.fromARGB(255, 60, 27, 14)
                               : Colors.white,
                           borderRadius: BorderRadius.circular(20),
                           border: isSelected
                               ? Border.all(
-                                  color: Color.fromARGB(255, 5, 65, 58))
+                                  color: Color.fromARGB(255, 60, 27, 14))
                               : null,
                         ),
                         child: Text(
@@ -222,12 +222,12 @@ class _HomePageState extends State<HomePage> {
                     ),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 5, 65, 58),
+                        color: Color.fromARGB(255, 60, 27, 14),
                         borderRadius: BorderRadius.circular(15),
                         boxShadow: [
                           BoxShadow(
-                            color:
-                                Color.fromARGB(255, 5, 65, 58).withOpacity(0.3),
+                            color: Color.fromARGB(255, 60, 27, 14)
+                                .withOpacity(0.3),
                             spreadRadius: 2,
                             blurRadius: 5,
                             offset: const Offset(0, 4),

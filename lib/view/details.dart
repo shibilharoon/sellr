@@ -129,7 +129,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   ));
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 5, 65, 58),
+                  backgroundColor: Color.fromARGB(255, 60, 27, 14),
                   textStyle: const TextStyle(fontSize: 16),
                 ),
                 child: const Text(
